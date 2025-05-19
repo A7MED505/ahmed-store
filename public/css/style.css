@@ -1,18 +1,18 @@
 /* style.css */
 
-/* 1. تعريف لوحة الألوان */
+
 :root {
-  /* الألوان الأساسية */
+  /* Primary colors */
   --color-primary: #3b82f6;
   --color-secondary: #06b6d4;
   --color-accent: #a21caf;
   --color-bg: #f5f7fa;
 
-  /* ألوان البطاقات */
+  /* Card colors */
   --color-card-bg: #fff;
   --color-card-hover: #f0f4fa;
 
-  /* تدرج لوني */
+  /* Gradient */
   --color-gradient: linear-gradient(120deg, #3b82f6 60%, #06b6d4 100%);
 }
 
@@ -22,7 +22,7 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* 2. قواعد عامة */
+/* 2. General rules */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -38,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: background 0.3s, color 0.3s;
-  padding-top: 70px; /* لتعويض fixed navbar */
+  padding-top: 70px; /* For fixed navbar offset */
 }
 
 /* 3. Navbar */
@@ -85,7 +85,7 @@ header.hero p.lead {
   opacity: 0.8;
 }
 
-/* 5. البطاقات (Cards) */
+/* 5. Cards */
 .card {
   background-color: var(--color-card-bg);
   border: none;

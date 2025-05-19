@@ -23,11 +23,11 @@ app.use(express.static(path.join(__dirname, 'public'))); // Static files (CSS, J
 
 // ====== Session Storage Settings ======
 app.use(session({
-  secret: process.env.SESSION_SECRET,  // استخدم متغير البيئة
+  secret: process.env.SESSION_SECRET,  // Use environment variable
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI, // استخدم متغير البيئة
+    mongoUrl: process.env.MONGODB_URI, // Use environment variable
     collectionName: 'sessions'
   }),
   cookie: {
