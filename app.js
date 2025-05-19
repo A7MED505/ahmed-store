@@ -12,7 +12,7 @@ const userRoutes    = require('./routes/userRoutes');
 const app = express();
 
 // ====== Database Connection (MongoDB) ======
-mongoose.connect('mongodb+srv://ahmedahmed20:8zDMeSvzbQDvsXoW@ahmedstore.5reqdii.mongodb.net/ahmedStore')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connected to MongoDB Atlas'))
   .catch(err => console.error('❌ MongoDB Atlas connection error:', err));
 
@@ -23,11 +23,11 @@ app.use(express.static(path.join(__dirname, 'public'))); // Static files (CSS, J
 
 // ====== Session Storage Settings ======
 app.use(session({
-  secret: 'your_secret_key_here',  // Change this to your own secret key
+  secret: process.env.SESSION_SECRET,  // استخدم متغير البيئة
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: 'mongodb+srv://ahmedahmed20:8zDMeSvzbQDvsXoW@ahmedstore.5reqdii.mongodb.net/ahmedStore',
+    mongoUrl: process.env.MONGODB_URI, // استخدم متغير البيئة
     collectionName: 'sessions'
   }),
   cookie: {
