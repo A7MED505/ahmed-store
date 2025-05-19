@@ -1,0 +1,258 @@
+/* style.css */
+
+/* 1. تعريف لوحة الألوان */
+:root {
+  /* الألوان الأساسية */
+  --color-primary: #3b82f6;
+  --color-secondary: #06b6d4;
+  --color-accent: #a21caf;
+  --color-bg: #f5f7fa;
+
+  /* ألوان البطاقات */
+  --color-card-bg: #fff;
+  --color-card-hover: #f0f4fa;
+
+  /* تدرج لوني */
+  --color-gradient: linear-gradient(120deg, #3b82f6 60%, #06b6d4 100%);
+}
+
+body {
+  background: var(--color-bg);
+  color: #222;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 2. قواعد عامة */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s, color 0.3s;
+  padding-top: 70px; /* لتعويض fixed navbar */
+}
+
+/* 3. Navbar */
+.navbar {
+  background-color: var(--color-nav-bg) !important;
+  box-shadow: 0 2px 4px var(--shadow-light);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.navbar .navbar-brand {
+  color: var(--color-primary) !important;
+  font-weight: bold;
+}
+.navbar .nav-link {
+  color: var(--color-nav-text) !important;
+  margin-right: 0.5rem;
+  transition: color 0.3s;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--color-primary) !important;
+}
+#darkModeToggle {
+  font-size: 1.2rem;
+  color: var(--color-nav-text);
+  border: none;
+  background: transparent;
+  transition: color 0.3s;
+}
+
+/* 4. Hero/Header */
+header.hero {
+  background-color: var(--color-card-hover);
+  padding: 4rem 1rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+header.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+header.hero p.lead {
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+/* 5. البطاقات (Cards) */
+.card {
+  background-color: var(--color-card-bg);
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px var(--shadow-medium);
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  background-color: var(--color-card-hover);
+  box-shadow: 0 4px 12px var(--shadow-medium);
+}
+.card-title {
+  color: var(--color-text);
+}
+.card-text {
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+/* 6. Buttons */
+.btn-primary {
+  background-color: var(--color-primary);
+  border: none;
+  transition: background 0.3s;
+}
+.btn-primary:hover {
+  background-color: darken(var(--color-primary), 10%);
+}
+.btn-outline-secondary {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+.btn-outline-secondary:hover {
+  background-color: var(--color-secondary);
+  color: #fff;
+}
+
+/* 7. Forms */
+.form-control {
+  border: 1px solid var(--shadow-medium);
+  border-radius: 0.3rem;
+  transition: border-color 0.3s;
+}
+.form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: none;
+}
+
+/* 8. Footer */
+footer {
+  background-color: var(--color-secondary);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+}
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+footer a:hover {
+  color: var(--color-primary);
+}
+
+/* 9. Alerts */
+.alert {
+  border-radius: 0.3rem;
+  transition: background 0.3s, color 0.3s;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* 10. Utility */
+.text-primary {
+  color: var(--color-primary) !important;
+}
+.container {
+  max-width: 1140px;
+}
+.mt-4 { margin-top: 1.5rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+
+/* ====== Dark Mode ====== */
+body.dark-mode {
+  --color-bg: #181c2a;
+  --color-card-bg: #23263a;
+  --color-card-hover: #23263a;
+  --color-primary: #60a5fa;
+  --color-secondary: #38bdf8;
+  --color-accent: #c026d3;
+  --color-gradient: linear-gradient(120deg, #23263a 60%, #181c2a 100%);
+  color: #e0e6f7;
+  background: linear-gradient(120deg, #23263a 60%, #181c2a 100%);
+}
+
+body.dark-mode .about-section,
+body.dark-mode .product-card,
+body.dark-mode .team-card {
+  background: #23263a;
+  color: #f3f6ff;
+  border: 1px solid #3b82f6;
+}
+body.dark-mode .about-section h3,
+body.dark-mode .card-title {
+  color: #7dd3fc;
+}
+body.dark-mode .card-text,
+body.dark-mode .list-group-item {
+  color: #dbeafe;
+}
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background: #23263a;
+  color: #f3f6ff;
+  border: 1px solid #3b82f6;
+}
+body.dark-mode .form-control::placeholder {
+  color: #7dd3fc;
+  opacity: 1;
+}
+body.dark-mode .form-label {
+  color: #7dd3fc;
+}
+body.dark-mode .btn-primary, body.dark-mode .bg-primary {
+  background: linear-gradient(90deg, #60a5fa 60%, #38bdf8 100%) !important;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 8px #38bdf8a0;
+}
+body.dark-mode .btn-primary:hover {
+  background: linear-gradient(90deg, #38bdf8 60%, #60a5fa 100%) !important;
+  color: #fff;
+}
+body.dark-mode .modern-footer, body.dark-mode footer {
+  background: linear-gradient(90deg, #23263a 60%, #3b82f6 100%);
+  color: #e0e6f7;
+}
+body.dark-mode .navbar, body.dark-mode .bg-dark {
+  background: linear-gradient(90deg, #23263a 60%, #23263a 100%) !important;
+  color: #e0e6f7 !important;
+}
+body.dark-mode .navbar .nav-link, body.dark-mode .navbar-brand {
+  color: #e0e6f7 !important;
+}
+body.dark-mode .navbar .nav-link.active, body.dark-mode .navbar .nav-link:focus, body.dark-mode .navbar .nav-link:hover {
+  color: #7dd3fc !important;
+}
+body.dark-mode .shadow-sm, body.dark-mode .shadow {
+  box-shadow: 0 2px 16px #60a5fa33 !important;
+}
+body.dark-mode .card-img-top {
+  filter: brightness(0.92) contrast(1.08) saturate(1.1);
+  border-bottom: 2px solid #3b82f6;
+}
+body.dark-mode .lead, body.dark-mode p, body.dark-mode li {
+  color: #dbeafe;
+}
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+  color: #7dd3fc;
+}
+body.dark-mode .row, body.dark-mode .container, body.dark-mode main {
+  background: transparent !important;
+}

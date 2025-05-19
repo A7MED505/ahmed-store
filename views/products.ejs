@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Products - AHMED Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .products-hero {
+      background: linear-gradient(120deg, #3498db 60%, #2ecc71 100%);
+      color: #fff;
+      padding: 3rem 1rem 2rem 1rem;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 4px 24px rgba(52,152,219,0.10);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .product-card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--color-card-bg, #fff);
+    }
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(52,152,219,0.15);
+      background: var(--color-card-hover, #f8f9fa);
+    }
+    .product-card .card-img-top {
+      border-radius: 1rem 1rem 0 0;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-card .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-primary, #3498db);
+    }
+    .product-card .card-footer {
+      background: none;
+      border-top: none;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Responsive Navbar -->
+  <%- include('partials/navbar') %>
+  <div style="height:70px;"></div>
+
+  <!-- Hero Section -->
+  <section class="products-hero">
+    <h1 class="display-5 fw-bold mb-2">Our Products</h1>
+    <p class="lead mb-0">Explore our latest collection and add your favorites to the cart!</p>
+  </section>
+
+  <div class="container mt-4 flex-grow-1">
+    <!-- Search and Filter Form -->
+    <form class="mb-4" method="get" action="/products">
+      <div class="row g-2 align-items-end bg-light rounded-4 shadow-sm p-3 mb-4 border border-2 border-primary-subtle">
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <label for="productSearch" class="form-label fw-semibold text-primary"><i class="bi bi-search"></i> Search</label>
+          <input type="text" class="form-control form-control-lg rounded-pill" id="productSearch" name="productSearch" placeholder="Search products..." value="<%= typeof productSearch !== 'undefined' ? productSearch : '' %>">
+        </div>
+        <div class="col-6 col-md-2 mb-2 mb-md-0">
+          <label for="category" class="form-label fw-semibold text-primary"><i class="bi bi-tags"></i> Category</label>
+          <select class="form-select form-select-lg rounded-pill" id="category" name="category">
+            <option value="">All Categories</option>
+            <% if (categories && categories.length) { %>
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat %>" <%= category === cat ? 'selected' : '' %>><%= cat %></option>
+              <% }) %>
+            <% } %>
+          </select>
+        </div>
+        <div class="col-3 col-md-2 mb-2 mb-md-0">
+          <label for="minPrice" class="form-label fw-semibold text-primary"><i class="bi bi-currency-dollar"></i> Min</label>
+          <input type="number" class="form-control form-control-lg rounded-pill" id="minPrice" name="minPrice" placeholder="Min $" value="<%= minPrice %>">
+        </div>
+        <div class="col-3 col-md-2 mb-2 mb-md-0">
+          <label for="maxPrice" class="form-label fw-semibold text-primary"><i class="bi bi-currency-dollar"></i> Max</label>
+          <input type="number" class="form-control form-control-lg rounded-pill" id="maxPrice" name="maxPrice" placeholder="Max $" value="<%= maxPrice %>">
+        </div>
+        <div class="col-12 col-md-2">
+          <button class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm" type="submit"><i class="bi bi-funnel"></i> Filter</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      <% if (products && products.length > 0) { %>
+        <% products.forEach(product => { %>
+          <div class="col">
+            <div class="card product-card h-100">
+              <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>" />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text text-muted"><%= product.description %></p>
+                <p class="card-text fw-bold mb-2">$<%= product.price.toFixed(2) %></p>
+                <span class="badge bg-secondary mb-2"><%= product.category %></span>
+                <form action="/cart/add/<%= product._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-primary btn-sm rounded-pill">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
+                </form>
+                <% if (user && user.isAdmin) { %>
+                  <div class="mt-2">
+                    <a href="/admin/edit-product/<%= product._id %>" class="btn btn-sm btn-warning me-2 rounded-pill">Edit</a>
+                    <a href="/admin/delete-product/<%= product._id %>" class="btn btn-sm btn-danger rounded-pill">Delete</a>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p class="text-center">No products available.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    &copy; 2025 AHMED Store
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
